@@ -1,0 +1,24 @@
+{
+  "name": "wedding-invitation",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "convex:dev": "convex dev",
+    "test": "vitest run",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "convex": "^1.46.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "convex-test": "^0.0.58",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.1"
+  }
+}

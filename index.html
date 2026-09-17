@@ -51,7 +51,7 @@
 
       .field:focus-within { border-color: #403b37; }
 
-      input {
+      input, textarea {
         width: 100%;
         min-width: 0;
         border: 0;
@@ -64,7 +64,13 @@
         font-size: 16px;
       }
 
-      input::placeholder { color: #918980; }
+      input::placeholder, textarea::placeholder { color: #918980; }
+      textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+      [hidden] { display: none !important; }
+      button:disabled { cursor: wait; opacity: 0.5; }
+      #address-form { margin-top: 40px; }
+      #address-form label { display: block; font-size: 13px; text-align: left; }
+      .save-address { margin: 18px auto 0; padding: 10px 18px; border: 1px solid #b9a0a7; border-radius: 3px; font: inherit; font-size: 13px; }
 
       button {
         display: grid;
@@ -104,7 +110,7 @@
   <body>
     <main>
       <h1 id="message" aria-live="polite">Come to my wedding?</h1>
-      <form>
+      <form id="email-form">
         <div class="field">
           <input
             type="email"
@@ -114,6 +120,7 @@
             autocomplete="email"
             autocapitalize="none"
             spellcheck="false"
+            maxlength="254"
             required
           />
           <button type="submit" aria-label="Submit email">
@@ -122,20 +129,17 @@
             </svg>
           </button>
         </div>
-        <p class="hint">Press enter to reply</p>
+        <p class="hint" id="email-status" role="status">Press enter to reply</p>
+      </form>
+      <form id="address-form" hidden>
+        <label for="address">Address <span class="hint">(optional)</span></label>
+        <div class="field">
+          <textarea id="address" name="address" autocomplete="street-address" maxlength="2000" placeholder="Street, city, postal code, country" aria-describedby="address-status"></textarea>
+        </div>
+        <p class="hint" id="address-status" role="status">To receive a physical invitation card.</p>
+        <button class="save-address" type="submit">Save address</button>
       </form>
     </main>
-    <script>
-      const form = document.querySelector('form');
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        if (!form.reportValidity()) return;
-        document.body.classList.add('accepted');
-        document.querySelector('#message').innerHTML =
-          '<span>Thank you.</span><span>I hope to see you in India.</span><span>in (hopefully) ~5 years</span>';
-        form.hidden = true;
-        document.querySelector('meta[name="theme-color"]').content = '#f6dce3';
-      });
-    </script>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>
